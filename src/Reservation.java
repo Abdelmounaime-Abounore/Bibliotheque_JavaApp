@@ -49,4 +49,7 @@ public class Reservation {
     public void setReader(Reader reader) {
         this.reader = reader;
     }
+    public void setBook(Book book) {
+        this.book = book;
+    }
 }

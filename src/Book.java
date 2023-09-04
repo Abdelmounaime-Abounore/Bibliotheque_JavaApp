@@ -9,7 +9,7 @@ public class Book {
     private int quantity;
     private List<Reservation> reservations;
 
-    public Book(int id, String title, String isbn, int quantity, Reservation res) {
+    public Book(int id, String title, String isbn, int quantity) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;

@@ -4,9 +4,9 @@ import java.util.List;
 public class Reader extends User {
     private String userName;
     private int numMember;
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new ArrayList<>();
 
-    public Reader(int id, String email, String password, String userName, int numMember, Reservation res) {
+    public Reader(int id, String email, String password, String userName, int numMember) {
         super(id, email, password);
         this.userName = userName;
         this.numMember = numMember;
