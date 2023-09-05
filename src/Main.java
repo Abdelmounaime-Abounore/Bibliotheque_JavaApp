@@ -1,53 +1,66 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//        User user1 = new User(1, "email@gmail.com", "abcdef");
-//        System.out.println(user1.getId());
-//        System.out.println(user1.getEmail());
-//        System.out.println(user1.getPassword());
-//
-//        user1.setId(10);
-//        user1.setEmail("gmail@gmail.com");
-//        user1.setPassword("123456");
-//
-//        System.out.println(user1.getId());
-//        System.out.println(user1.getEmail());
-//        System.out.println(user1.getPassword());
+        System.out.println("Welcome to our Library");
 
-//        Admin admin = new Admin(1, "admin@gmail.com", "abcdef");
-//        System.out.println(admin.getId());
-//        System.out.println(admin.getEmail());
-//        System.out.println(admin.getPassword());
-//
-//        admin.setId(10);
-//        admin.setEmail("gmail@gmail.com");
-//        admin.setPassword("123456");
-//
-//        System.out.println(admin.getId());
-//        System.out.println(admin.getEmail());
-//        System.out.println(admin.getPassword());
+        Scanner sc = new Scanner(System.in);
 
+        do{
+            System.out.println("1- Add Author: \n");
+            System.out.println("2- Add Book: \n");
 
-        Reader reader = new Reader(1, "gmail@gmail.com", "12345", "Bonore", 100);
-        Reservation res1 = new Reservation(1, new Date(), "emprinte", reader, new Book(1, "Book1", "ISBN1", 5));
-        Reservation res2 = new Reservation(2, new Date(), "emprinte", reader, new Book(2, "Book2", "ISBN2", 3));
-        reader.addReservation(res1);
-        reader.addReservation(res2);
-        System.out.println("Reader ID: " + reader.getId());
-        System.out.println("Email: " + reader.getEmail());
-        System.out.println("Password: " + reader.getPassword());
-        System.out.println("Username: " + reader.getUserName());
-        System.out.println("Number of Members: " + reader.getNumMember());
+            int ch = sc.nextInt();
+            switch (ch){
+                case 1:
+                    Author author = new Author();
 
-        System.out.println("Reservations:");
-        for (Reservation reservation : reader.getReservations()) {
-            System.out.println("Reservation ID: " + reservation.getId());
-            System.out.println("Date of Reservation: " + reservation.getDateOfReservation());
-            System.out.println("Status: " + reservation.getStatus());
-            System.out.println("book: " + reservation.getBook());
-            // Print other reservation details if needed
-        }
+                    System.out.println("Enter Id: ");
+                    int authorId = sc.nextInt();
+
+                    System.out.println("Enter name: ");
+                    String name = sc.next();
+
+                    author.setId(authorId);
+                    author.setName(name);
+
+                    author.addAuthor(author);
+                    break;
+                case 2:
+                    Book book = new Book();
+
+                    System.out.println("Enter Id: ");
+                    int bookId = sc.nextInt();
+
+                    System.out.println("Enter Title: ");
+                    String title = sc.next();
+
+                    System.out.println("Enter Isbn: ");
+                    String isbn = sc.next();
+
+                    System.out.println("Enter Quantity: ");
+                    int quantity = sc.nextInt();
+
+                    System.out.println("Enter Author Id: ");
+                    int authorid = sc.nextInt();
+
+                    book.setId(bookId);
+                    book.setTitle(title);
+                    book.setIsbn(isbn);
+                    book.setQuantity(quantity);
+                    book.setAuteurId(authorid);
+
+                    book.addBook(book);
+                    break;
+                case 3:
+                    System.out.println("Thanks for Your visit");
+                    System.exit(0);
+                default:
+                    System.out.println("Enter a valid choice");
+            }
+        }while (true);
+
     }
 }
