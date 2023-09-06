@@ -28,7 +28,7 @@ public class Author {
         return name;
     }
 
-    public void addAuthor(Author author){
+    public Author addAuthor(Author author){
         Connection con = DbConnection.createDbConection();
         String query = "insert into auteurs values(?,?)";
 
@@ -37,10 +37,14 @@ public class Author {
             pstm.setInt(1, author.getId());
             pstm.setString(2, author.getName());
             int count = pstm.executeUpdate();
-            if (count!=0)
+            if (count!=0){
                 System.out.println("Author Inserted Successfully");
+            }else {
+                System.out.println("Failed to Insert Author");
+            }
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        return author;
     }
 }

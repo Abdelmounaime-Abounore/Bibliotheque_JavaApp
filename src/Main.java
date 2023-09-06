@@ -9,10 +9,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         do{
-            System.out.println("1- Add Author: \n");
-            System.out.println("2- Add Book: \n");
+            System.out.println("1- Add Author:");
+            System.out.println("2- Add Book:");
+            System.out.println("3- Show all Books:");
 
             int ch = sc.nextInt();
+            Book book = new Book();
             switch (ch){
                 case 1:
                     Author author = new Author();
@@ -29,8 +31,6 @@ public class Main {
                     author.addAuthor(author);
                     break;
                 case 2:
-                    Book book = new Book();
-
                     System.out.println("Enter Id: ");
                     int bookId = sc.nextInt();
 
@@ -55,6 +55,9 @@ public class Main {
                     book.addBook(book);
                     break;
                 case 3:
+                    book.displayBook();
+                    break;
+                case 4:
                     System.out.println("Thanks for Your visit");
                     System.exit(0);
                 default:

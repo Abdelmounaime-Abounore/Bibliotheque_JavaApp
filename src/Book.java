@@ -1,5 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SimpleTimeZone;
@@ -21,6 +23,7 @@ public class Book {
     }
 
     public Book() {
+
     }
 
     public int getId(){
@@ -67,7 +70,8 @@ public class Book {
         reservations.add(reservation);
     }
 
-    public void addBook(Book book){
+    // Add Book
+    public Book addBook(Book book){
         Connection con = DbConnection.createDbConection();
         String query = "insert into books values (?,?,?,?,?)";
 
@@ -83,6 +87,28 @@ public class Book {
                 System.out.println("Book inserted Successfully");
 
         } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return book;
+    }
+
+    // Display Books
+    public void displayBook(){
+        Connection con = DbConnection.createDbConection();
+        String query = "SELECT * FROM books INNER JOIN auteurs WHERE books.auteur_id = auteurs.id";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            while (result.next()){
+                System.out.format("%d\t%s\t%s\t%d\t%s%n",
+                        result.getInt(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getInt(4),
+                        result.getString(5));
+            }
+            System.out.println("---------------------------");
+        }catch (Exception ex){
             ex.printStackTrace();
         }
     }
