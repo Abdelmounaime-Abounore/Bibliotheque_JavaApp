@@ -67,18 +67,17 @@ public class Main {
                         System.out.println("3. Go Back");
 
                         searchChoice = sc.nextInt();
-
+                        Book searchedBook = new Book();
                         switch (searchChoice) {
                             case 1:
                                 System.out.println("Enter title: ");
                                 String searchTitle = sc.next();
-
-                                Book searchedBook = new Book();
-                                Book foundedBook = searchedBook.searchByTitle(searchTitle);
-
+                                searchedBook.searchByTitle(searchTitle);
                                 break;
                             case 2:
-                                // Code for searching by name
+                                System.out.println("Enter Author name: ");
+                                String searchAuthor = sc.next();
+                                searchedBook.searchByAuthorName(searchAuthor);
                                 break;
                             case 3:
                                 break;

@@ -69,6 +69,8 @@ public class Book {
         reservations.add(reservation);
     }
 
+    Book book = new Book();
+
     // Add Book
     public Book addBook(Book book){
         Connection con = DbConnection.createDbConection();
@@ -114,7 +116,6 @@ public class Book {
 
     //Search Books by Title
     public Book searchByTitle(String title){
-        Book book = new Book();
         Connection con = DbConnection.createDbConection();
         String searchQuery = "SELECT books.*, auteurs.name FROM books INNER JOIN auteurs ON books.auteur_id = auteurs.id where title like ?";
 
@@ -136,6 +137,36 @@ public class Book {
             }
             System.out.println("---------------------------");
         } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return book;
+    }
+
+    //Search Books by Author Name
+    public Book searchByAuthorName(String authorName){
+        Connection con =  DbConnection.createDbConection();
+        String query = "SELECT books.*, auteurs.name as author_name" +
+                "FROM books" +
+                "INNER JOIN auteurs ON books.auteur_id = auteurs.id" +
+                "WHERE auteurs.name LIKE ?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, "%" + authorName + "%");
+            ResultSet result = stmt.executeQuery();
+
+            if (!result.isBeforeFirst()){
+                System.out.println("Book not found");
+            } else {
+                while (result.next()){
+                    System.out.println("id : " + result.getInt("id"));
+                    System.out.println("title : " + result.getString("title"));
+                    System.out.println("isbn : " + result.getString("isbn"));
+                    System.out.println("quantity : " + result.getInt("quantity"));
+                    System.out.println("name : " + result.getString("name"));
+                }
+            }
+        }catch (Exception ex){
             ex.printStackTrace();
         }
         return book;
