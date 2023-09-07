@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SimpleTimeZone;
 
 public class Book {
     private int id;
@@ -95,21 +94,50 @@ public class Book {
     // Display Books
     public void displayBook(){
         Connection con = DbConnection.createDbConection();
-        String query = "SELECT * FROM books INNER JOIN auteurs WHERE books.auteur_id = auteurs.id";
+        String query = "SELECT books.*, auteurs.name FROM books INNER JOIN auteurs ON books.auteur_id = auteurs.id";
         try {
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while (result.next()){
                 System.out.format("%d\t%s\t%s\t%d\t%s%n",
-                        result.getInt(1),
-                        result.getString(2),
-                        result.getString(3),
-                        result.getInt(4),
-                        result.getString(5));
+                        result.getInt("id"),
+                        result.getString("title"),
+                        result.getString("isbn"),
+                        result.getInt("quantity"),
+                        result.getString("name"));
             }
             System.out.println("---------------------------");
         }catch (Exception ex){
             ex.printStackTrace();
         }
+    }
+
+    //Search Books by Title
+    public Book searchByTitle(String title){
+        Book book = new Book();
+        Connection con = DbConnection.createDbConection();
+        String searchQuery = "SELECT books.*, auteurs.name FROM books INNER JOIN auteurs ON books.auteur_id = auteurs.id where title like ?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(searchQuery);
+            stmt.setString(1, "%" + title + "%");
+
+            ResultSet result = stmt.executeQuery();
+            if (!result.isBeforeFirst()){
+                System.out.println("Book not found");
+            } else {
+                while (result.next()){
+                    System.out.println("id : " + result.getInt("id"));
+                    System.out.println("title : " + result.getString("title"));
+                    System.out.println("isbn : " + result.getString("isbn"));
+                    System.out.println("quantity : " + result.getInt("quantity"));
+                    System.out.println("name : " + result.getString("name"));
+                }
+            }
+            System.out.println("---------------------------");
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return book;
     }
 }

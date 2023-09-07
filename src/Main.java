@@ -12,6 +12,7 @@ public class Main {
             System.out.println("1- Add Author:");
             System.out.println("2- Add Book:");
             System.out.println("3- Show all Books:");
+            System.out.println("4- Look for a book");
 
             int ch = sc.nextInt();
             Book book = new Book();
@@ -58,6 +59,35 @@ public class Main {
                     book.displayBook();
                     break;
                 case 4:
+                    int searchChoice;
+                    do {
+                        System.out.println("Search Menu:");
+                        System.out.println("1. Search by Title");
+                        System.out.println("2. Search by Author");
+                        System.out.println("3. Go Back");
+
+                        searchChoice = sc.nextInt();
+
+                        switch (searchChoice) {
+                            case 1:
+                                System.out.println("Enter title: ");
+                                String searchTitle = sc.next();
+
+                                Book searchedBook = new Book();
+                                Book foundedBook = searchedBook.searchByTitle(searchTitle);
+
+                                break;
+                            case 2:
+                                // Code for searching by name
+                                break;
+                            case 3:
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                    } while (searchChoice != 3);
+                    break;
+                case 10:
                     System.out.println("Thanks for Your visit");
                     System.exit(0);
                 default:
