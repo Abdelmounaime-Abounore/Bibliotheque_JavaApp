@@ -13,6 +13,7 @@ public class Main {
             System.out.println("2- Add Book:");
             System.out.println("3- Show all Books:");
             System.out.println("4- Look for a book");
+            System.out.println("5- Update a Book");
 
             int ch = sc.nextInt();
             Book book;
@@ -90,6 +91,30 @@ public class Main {
                                 System.out.println("Invalid choice. Please try again.");
                         }
                     } while (searchChoice != 3);
+                    break;
+                case 5:
+                    System.out.println("Enter the isbn of Book you want to Update: ");
+                    String bookIsbn = sc.next();
+                    book = new Book();
+                    boolean checkIsbn = book.checkIsbnBook(bookIsbn);
+                    if (!checkIsbn){
+                        System.out.println("The isbn is not exist");
+                    } else {
+                        System.out.println("Enter new title: ");
+                        String newTitle = sc.next();
+
+                        System.out.println("Enter new isbn: ");
+                        String newIsbn = sc.next();
+
+                        System.out.println("Enter new quantity: ");
+                        int newQuantity = sc.nextInt();
+
+                        book.setTitle(newTitle);
+                        book.setIsbn(newIsbn);
+                        book.setQuantity(newQuantity);
+
+                        book.updateBook(bookIsbn);
+                    }
                     break;
                 case 10:
                     System.out.println("Thanks for Your visit");

@@ -114,7 +114,7 @@ public class Book {
     }
 
     //Search Books by Title
-    public void searchByTitle(String title){
+    public Book searchByTitle(String title){
         Connection con = DbConnection.createDbConection();
         String searchQuery = "SELECT books.*, auteurs.name FROM books INNER JOIN auteurs ON books.auteur_id = auteurs.id where title like ?";
 
@@ -138,6 +138,7 @@ public class Book {
         } catch (Exception ex){
             ex.printStackTrace();
         }
+        return this;
     }
 
     //Search Books by Author Name
@@ -166,6 +167,47 @@ public class Book {
                 }
             }
         }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    //Check book isbn
+
+    public Boolean checkIsbnBook(String isbn){
+        Connection con = DbConnection.createDbConection();
+        String query = "select * from books where isbn = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, isbn);
+            ResultSet resultSet = stmt.executeQuery();
+            if (!resultSet.isBeforeFirst()){
+                return false;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return true;
+    }
+
+    // Update books
+    public void updateBook(String isbn) {
+        Connection con = DbConnection.createDbConection();
+
+        String query = "UPDATE `books` SET `title`=?, `isbn`=?, `quantity`=? WHERE `isbn`=? ";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, getTitle());
+            preparedStatement.setString(2, getIsbn());
+            preparedStatement.setInt(3, getQuantity());
+            preparedStatement.setString(4, isbn);
+
+            int count = preparedStatement.executeUpdate();
+            if (count != 0) {
+                System.out.println("Book Updated Successfully");
+            } else {
+                System.out.println("Something went wrong");
+            }
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
