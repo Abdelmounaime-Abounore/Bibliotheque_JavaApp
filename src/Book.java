@@ -69,20 +69,19 @@ public class Book {
         reservations.add(reservation);
     }
 
-    Book book = new Book();
 
     // Add Book
-    public Book addBook(Book book){
+    public Book addBook(){
         Connection con = DbConnection.createDbConection();
         String query = "insert into books values (?,?,?,?,?)";
 
         try{
             PreparedStatement pstm = con.prepareStatement(query);
-            pstm.setInt(1, book.getId());
-            pstm.setString(2, book.getTitle());
-            pstm.setString(3, book.getIsbn());
-            pstm.setInt(4, book.getQuantity());
-            pstm.setInt(5, book.getAuteurId());
+            pstm.setInt(1, this.id);
+            pstm.setString(2, this.title);
+            pstm.setString(3, this.isbn);
+            pstm.setInt(4, this.quantity);
+            pstm.setInt(5, this.auteurId);
             int count = pstm.executeUpdate();
             if (count != 0)
                 System.out.println("Book inserted Successfully");
@@ -90,7 +89,7 @@ public class Book {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return book;
+        return this;
     }
 
     // Display Books
@@ -115,13 +114,13 @@ public class Book {
     }
 
     //Search Books by Title
-    public Book searchByTitle(String title){
+    public void searchByTitle(String title){
         Connection con = DbConnection.createDbConection();
         String searchQuery = "SELECT books.*, auteurs.name FROM books INNER JOIN auteurs ON books.auteur_id = auteurs.id where title like ?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(searchQuery);
-            stmt.setString(1, "%" + title + "%");
+            stmt.setString(1, title);
 
             ResultSet result = stmt.executeQuery();
             if (!result.isBeforeFirst()){
@@ -139,20 +138,19 @@ public class Book {
         } catch (Exception ex){
             ex.printStackTrace();
         }
-        return book;
     }
 
     //Search Books by Author Name
-    public Book searchByAuthorName(String authorName){
+    public void searchByAuthorName(String authorName){
         Connection con =  DbConnection.createDbConection();
-        String query = "SELECT books.*, auteurs.name as author_name" +
-                "FROM books" +
-                "INNER JOIN auteurs ON books.auteur_id = auteurs.id" +
+        String query = "SELECT books.*, auteurs.name " +
+                "FROM books " +
+                "INNER JOIN auteurs ON books.auteur_id = auteurs.id " +
                 "WHERE auteurs.name LIKE ?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, "%" + authorName + "%");
+            stmt.setString(1, authorName );
             ResultSet result = stmt.executeQuery();
 
             if (!result.isBeforeFirst()){
@@ -164,11 +162,11 @@ public class Book {
                     System.out.println("isbn : " + result.getString("isbn"));
                     System.out.println("quantity : " + result.getInt("quantity"));
                     System.out.println("name : " + result.getString("name"));
+                    System.out.println("---------------------------");
                 }
             }
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        return book;
     }
 }

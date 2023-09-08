@@ -15,7 +15,7 @@ public class Main {
             System.out.println("4- Look for a book");
 
             int ch = sc.nextInt();
-            Book book = new Book();
+            Book book;
             switch (ch){
                 case 1:
                     Author author = new Author();
@@ -29,9 +29,10 @@ public class Main {
                     author.setId(authorId);
                     author.setName(name);
 
-                    author.addAuthor(author);
+                    author.addAuthor();
                     break;
                 case 2:
+
                     System.out.println("Enter Id: ");
                     int bookId = sc.nextInt();
 
@@ -47,15 +48,17 @@ public class Main {
                     System.out.println("Enter Author Id: ");
                     int authorid = sc.nextInt();
 
+                    book = new Book();
                     book.setId(bookId);
                     book.setTitle(title);
                     book.setIsbn(isbn);
                     book.setQuantity(quantity);
                     book.setAuteurId(authorid);
 
-                    book.addBook(book);
+                    book.addBook();
                     break;
                 case 3:
+                    book = new Book();
                     book.displayBook();
                     break;
                 case 4:
@@ -67,16 +70,18 @@ public class Main {
                         System.out.println("3. Go Back");
 
                         searchChoice = sc.nextInt();
-                        Book searchedBook = new Book();
+                        Book searchedBook;
                         switch (searchChoice) {
                             case 1:
                                 System.out.println("Enter title: ");
                                 String searchTitle = sc.next();
+                                searchedBook=new Book();
                                 searchedBook.searchByTitle(searchTitle);
                                 break;
                             case 2:
                                 System.out.println("Enter Author name: ");
                                 String searchAuthor = sc.next();
+                                searchedBook=new Book();
                                 searchedBook.searchByAuthorName(searchAuthor);
                                 break;
                             case 3:
