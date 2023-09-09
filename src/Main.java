@@ -14,6 +14,7 @@ public class Main {
             System.out.println("3- Show all Books:");
             System.out.println("4- Look for a book");
             System.out.println("5- Update a Book");
+            System.out.println("6- Delete a Book");
 
             int ch = sc.nextInt();
             Book book;
@@ -114,6 +115,17 @@ public class Main {
                         book.setQuantity(newQuantity);
 
                         book.updateBook(bookIsbn);
+                    }
+                    break;
+                case 6:
+                    System.out.println("Enter the isbn of Book you want to Delete: ");
+                    bookIsbn = sc.next();
+                    book = new Book();
+                    checkIsbn = book.checkIsbnBook(bookIsbn);
+                    if (!checkIsbn){
+                        System.out.println("The isbn is not exist");
+                    }else {
+                        book.deleteBook(bookIsbn);
                     }
                     break;
                 case 10:

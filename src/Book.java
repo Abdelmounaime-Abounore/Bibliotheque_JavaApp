@@ -211,4 +211,25 @@ public class Book {
             ex.printStackTrace();
         }
     }
+
+    // Delete Book
+
+    public void deleteBook(String isbn){
+        Connection con = DbConnection.createDbConection();
+        String query = "Delete from books where isbn = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, isbn);
+
+            int count = preparedStatement.executeUpdate();
+            if (count != 0){
+                System.out.println("Book deleted Successfully");
+            }else {
+                System.out.println("Something went wrong");
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }
