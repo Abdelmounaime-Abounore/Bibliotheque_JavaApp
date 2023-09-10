@@ -51,13 +51,19 @@ public class Reservation {
     public void addReservation(){
         Connection con = DbConnection.createDbConection();
         String query = "INSERT into reservations (status, user_id, book_id) values (?,?,?)";
+        String queryQuantity = "UPDATE books set quantity = quantity - 1 where id = ?";
         try {
             PreparedStatement preparedStatement = con.prepareStatement(query);
+            PreparedStatement preparedStatement2 = con.prepareStatement(queryQuantity);
+
             preparedStatement.setString(1, this.status);
             preparedStatement.setInt(2, this.userId);
             preparedStatement.setInt(3, this.bookId);
 
+            preparedStatement2.setInt(1, this.bookId);
+
             int count = preparedStatement.executeUpdate();
+            preparedStatement2.executeUpdate();
 
             if (count != 0){
                 System.out.println("Book reserved Successfully");
@@ -67,6 +73,32 @@ public class Reservation {
         }catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
 
+    //Return Book
+
+    public void returBook(String isbn){
+        Connection con = DbConnection.createDbConection();
+        String query = "UPDATE reservations SET status = 'returned' WHERE user_id = ? AND book_id = ?";
+        String queryQuantity = "UPDATE books set quantity = quantity + 1 where id = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setInt(1, this.userId);
+            preparedStatement.setInt(2, this.bookId);
+
+            PreparedStatement preparedStatement2 = con.prepareStatement(queryQuantity);
+            preparedStatement2.setInt(1, bookId);
+
+            int count = preparedStatement.executeUpdate();
+            preparedStatement2.executeUpdate();
+
+            if (count != 0){
+                System.out.println("Book returned Successfully");
+            }else {
+                System.out.println("Something went wrong");
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

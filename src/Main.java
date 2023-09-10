@@ -16,6 +16,7 @@ public class Main {
             System.out.println("5- Update a Book");
             System.out.println("6- Delete a Book");
             System.out.println("7- Borrow a Book");
+            System.out.println("8- Rerun a Book");
 
             int ch = sc.nextInt();
             Book book;
@@ -134,7 +135,7 @@ public class Main {
                         if (!book.checkQuatity(bookIsbn)){
                             System.out.println("The Book is not available");
                         } else {
-                            System.out.println("Enter  Your name");
+                            System.out.println("Enter Your name");
                             name = sc.next();
                             user = new User();
                             int userId = user.getUserId(name);
@@ -148,6 +149,27 @@ public class Main {
                             reservation = new Reservation("Borrowed", userId, bookId);
                             reservation.addReservation();
                         }
+                    }
+                    break;
+                case 8:
+                    System.out.println("Enter the isbn of book");
+                    bookIsbn = sc.next();
+                    book = new Book();
+                    checkIsbn = book.checkIsbnBook(bookIsbn);
+                    if (!checkIsbn) {
+                        System.out.println("the book isbn is not exist");
+                    }else {
+                        System.out.println("Enter Your name");
+                        name = sc.next();
+                        user = new User();
+                        int userId = user.getUserId(name);
+                        if (userId == 0) {
+                            System.out.println("name is doest exist");
+                            break;
+                        }
+                        bookId = book.getBookId(bookIsbn);
+                        reservation = new Reservation("Returned", userId, bookId);
+                        reservation.returBook(bookIsbn);
                     }
                     break;
                 case 10:
