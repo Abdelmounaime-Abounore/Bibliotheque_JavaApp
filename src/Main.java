@@ -15,28 +15,23 @@ public class Main {
             System.out.println("4- Look for a book");
             System.out.println("5- Update a Book");
             System.out.println("6- Delete a Book");
+            System.out.println("7- Borrow a Book");
 
             int ch = sc.nextInt();
             Book book;
+            Reservation reservation;
+            User user;
             switch (ch){
                 case 1:
-                    Author author = new Author();
-
-                    System.out.println("Enter Id: ");
-                    int authorId = sc.nextInt();
-
                     System.out.println("Enter name: ");
                     String name = sc.next();
-
-                    author.setId(authorId);
-                    author.setName(name);
-
+                    Author author = new Author(name);
                     author.addAuthor();
                     break;
                 case 2:
-
+                    int bookId;
                     System.out.println("Enter Id: ");
-                    int bookId = sc.nextInt();
+                    bookId = sc.nextInt();
 
                     System.out.println("Enter Title: ");
                     String title = sc.next();
@@ -126,6 +121,33 @@ public class Main {
                         System.out.println("The isbn is not exist");
                     }else {
                         book.deleteBook(bookIsbn);
+                    }
+                    break;
+                case 7:
+                    System.out.println("Borrow a book: ");
+                    bookIsbn = sc.next();
+                    book = new Book();
+                    checkIsbn = book.checkIsbnBook(bookIsbn);
+                    if (!checkIsbn){
+                        System.out.println("The isbn is not exist");
+                    }else {
+                        if (!book.checkQuatity(bookIsbn)){
+                            System.out.println("The Book is not available");
+                        } else {
+                            System.out.println("Enter  Your name");
+                            name = sc.next();
+                            user = new User();
+                            int userId = user.getUserId(name);
+                            if(userId == 0) {
+                                System.out.println("name is doest exist");
+                                break;
+                            }
+                            book = new Book();
+                            bookId = book.getBookId(bookIsbn);
+
+                            reservation = new Reservation("Borrowed", userId, bookId);
+                            reservation.addReservation();
+                        }
                     }
                     break;
                 case 10:

@@ -232,4 +232,40 @@ public class Book {
             ex.printStackTrace();
         }
     }
+
+    // Test quantity
+
+    public Boolean checkQuatity(String isbn) {
+        Connection con = DbConnection.createDbConection();
+        String query = "select * from books where isbn = ? and quantity >= 0";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, isbn);
+            ResultSet resultSet = stmt.executeQuery();
+            if (!resultSet.isBeforeFirst()){
+                return false;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return true;
+    }
+
+    //Get id of the the book title inserted
+    public int getBookId(String isbn){
+        Connection con = DbConnection.createDbConection();
+        String query = "SELECT id FROM books WHERE isbn = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, isbn);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()){
+                int id = resultSet.getInt("id");
+                return id;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
+    }
 }

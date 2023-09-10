@@ -1,27 +1,27 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Reservation {
-    private int id;
-    private Date dateOfReservation;
     private String status;
     private Reader reader;
     private Book book;
 
-    public Reservation(int id, Date dateOfReservation, String status, Reader reader, Book book) {
-        this.id = id;
-        this.dateOfReservation = dateOfReservation;
+    private int userId;
+
+    private  int bookId;
+
+    public Reservation(String status, int userId, int bookId) {
         this.status = status;
-        this.reader = reader;
-        this.book = book;
+        this.userId = userId;
+        this.bookId = bookId;
+    }
+    public Reservation(){
+
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public Date getDateOfReservation() {
-        return dateOfReservation;
-    }
 
     public String getStatus() {
         return status;
@@ -34,13 +34,7 @@ public class Reservation {
         return book;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public void setDateOfReservation(Date dateOfReservation) {
-        this.dateOfReservation = dateOfReservation;
-    }
 
     public void setStatus(String status) {
         this.status = status;
@@ -51,5 +45,28 @@ public class Reservation {
     }
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    // Borrow a Book
+    public void addReservation(){
+        Connection con = DbConnection.createDbConection();
+        String query = "INSERT into reservations (status, user_id, book_id) values (?,?,?)";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, this.status);
+            preparedStatement.setInt(2, this.userId);
+            preparedStatement.setInt(3, this.bookId);
+
+            int count = preparedStatement.executeUpdate();
+
+            if (count != 0){
+                System.out.println("Book reserved Successfully");
+            }else {
+                System.out.println("Something went wrong");
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
