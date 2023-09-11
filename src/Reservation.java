@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -119,6 +120,26 @@ public class Reservation {
                 System.out.println("Something went wrong");
             }
         }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void displayBorrowedBooks(){
+        Connection con = DbConnection.createDbConection();
+        String query = "SELECT books.title, users.userName, reservations.date_emprint FROM reservations " +
+                "INNER JOIN users ON reservations.user_id = users.id " +
+                "INNER JOIN books ON reservations.book_id = books.id" +
+                " WHERE status = 'Borrowed'";
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            while (resultSet.next()){
+                System.out.println("Title: " + resultSet.getString("title"));
+                System.out.println("Reader name: " + resultSet.getString("userName"));
+                System.out.println("Borrowing date: " + resultSet.getDate("date_emprint"));
+                System.out.println("================================");
+            }
+        }catch (Exception ex){
             ex.printStackTrace();
         }
     }

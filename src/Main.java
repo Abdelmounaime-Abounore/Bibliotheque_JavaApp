@@ -17,6 +17,7 @@ public class Main {
             System.out.println("6- Delete a Book");
             System.out.println("7- Borrow a Book");
             System.out.println("8- Rerun a Book");
+            System.out.println("9- Show borrowed books");
             System.out.println("===========================");
 
             int ch = sc.nextInt();
@@ -177,6 +178,10 @@ public class Main {
                         reservation = new Reservation("Returned", userId, bookId);
                         reservation.returBook(bookIsbn);
                     }
+                    break;
+                case 9:
+                    reservation = new Reservation();
+                    reservation.displayBorrowedBooks();
                     break;
                 case 10:
                     System.out.println("Thanks for Your visit");
