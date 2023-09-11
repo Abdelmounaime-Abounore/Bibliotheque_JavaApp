@@ -17,6 +17,7 @@ public class Main {
             System.out.println("6- Delete a Book");
             System.out.println("7- Borrow a Book");
             System.out.println("8- Rerun a Book");
+            System.out.println("===========================");
 
             int ch = sc.nextInt();
             Book book;
@@ -125,14 +126,15 @@ public class Main {
                     }
                     break;
                 case 7:
-                    System.out.println("Borrow a book: ");
+                    System.out.println("Enter the isbn of the book you want to borrow: ");
                     bookIsbn = sc.next();
                     book = new Book();
                     checkIsbn = book.checkIsbnBook(bookIsbn);
                     if (!checkIsbn){
                         System.out.println("The isbn is not exist");
                     }else {
-                        if (!book.checkQuatity(bookIsbn)){
+                        boolean checkQuantity = book.checkQuatity(bookIsbn);
+                        if (!checkQuantity){
                             System.out.println("The Book is not available");
                         } else {
                             System.out.println("Enter Your name");
@@ -147,6 +149,10 @@ public class Main {
                             bookId = book.getBookId(bookIsbn);
 
                             reservation = new Reservation("Borrowed", userId, bookId);
+                            if (reservation.checkUserReservation()){
+                                System.out.println("You can't reserve this book other time");
+                                break;
+                            }
                             reservation.addReservation();
                         }
                     }

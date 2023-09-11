@@ -69,7 +69,6 @@ public class Book {
         reservations.add(reservation);
     }
 
-
     // Add Book
     public Book addBook(){
         Connection con = DbConnection.createDbConection();
@@ -237,7 +236,7 @@ public class Book {
 
     public Boolean checkQuatity(String isbn) {
         Connection con = DbConnection.createDbConection();
-        String query = "select * from books where isbn = ? and quantity >= 0";
+        String query = "select * from books where isbn = ? and quantity > 0";
         try {
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1, isbn);

@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -73,6 +74,26 @@ public class Reservation {
         }catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    //Check if the book is already reserved by the same reader
+    public Boolean checkUserReservation(){
+        Connection con = DbConnection.createDbConection();
+        String query = "SELECT * from reservations where status = 'Borrowed' and user_id = ? and book_id = ?";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, this.userId);
+            stmt.setInt(2, this.bookId);
+
+            ResultSet resultSet = stmt.executeQuery();
+            if (!resultSet.isBeforeFirst()){
+                return false;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return true;
     }
 
     //Return Book
