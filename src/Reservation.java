@@ -123,17 +123,18 @@ public class Reservation {
             ex.printStackTrace();
         }
     }
-    public void displayBorrowedBooks(){
+    public void displayBooks(String status){
         Connection con = DbConnection.createDbConection();
         String query = "SELECT books.title, users.userName, reservations.date_emprint FROM reservations " +
                 "INNER JOIN users ON reservations.user_id = users.id " +
                 "INNER JOIN books ON reservations.book_id = books.id" +
-                " WHERE status = 'Borrowed'";
+                " WHERE status = '"+status+"' " ;
 
         try {
             Statement stmt = con.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()){
+                System.out.println("The " + status + " books");
                 System.out.println("Title: " + resultSet.getString("title"));
                 System.out.println("Reader name: " + resultSet.getString("userName"));
                 System.out.println("Borrowing date: " + resultSet.getDate("date_emprint"));

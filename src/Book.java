@@ -267,4 +267,24 @@ public class Book {
         }
         return 0;
     }
+
+    //Show available books
+    public void availableBooks(){
+        Connection con = DbConnection.createDbConection();
+        String query = "SELECT * from books where quantity > 0";
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            System.out.println("The available books are: ");
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("title") + " which has the Isbn " +
+                        resultSet.getString("isbn") + " and a quantity of " +
+                        resultSet.getInt("quantity") + " books");
+                System.out.println("==============================================================");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }
