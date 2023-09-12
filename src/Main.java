@@ -19,6 +19,7 @@ public class Main {
             System.out.println("8- Rerun a Book");
             System.out.println("9- Show borrowed books");
             System.out.println("10- Show Statistics");
+            System.out.println("11- Exit");
             System.out.println("===========================");
 
             int ch = sc.nextInt();
@@ -65,6 +66,7 @@ public class Main {
                     book.addBook();
                     break;
                 case 3:
+                    System.out.println("The books of Library: ");
                     book = new Book();
                     book.displayBook();
                     break;
@@ -115,9 +117,20 @@ public class Main {
                         System.out.println("Enter new quantity: ");
                         int newQuantity = sc.nextInt();
 
+                        System.out.println("Enter name of Author: ");
+                        String newAuthor = sc.next();
+                        author = new Author();
+                        authorId = author.getAuthorId(newAuthor);
+
+                        if(authorId == 0) {
+                            System.out.println("Author name is doest exist");
+                            break;
+                        }
+
                         book.setTitle(newTitle);
                         book.setIsbn(newIsbn);
                         book.setQuantity(newQuantity);
+                        book.setAuteurId(authorId);
 
                         book.updateBook(bookIsbn);
                     }
@@ -178,7 +191,7 @@ public class Main {
                         user = new User();
                         int userId = user.getUserId(name);
                         if (userId == 0) {
-                            System.out.println("name is doest exist");
+                            System.out.println("username is doest exist");
                             break;
                         }
                         bookId = book.getBookId(bookIsbn);
@@ -199,7 +212,7 @@ public class Main {
                     reservation.displayBooks("Borrowed");
                     reservation.displayBooks("Lost");
                     break;
-                case 12:
+                case 11:
                     System.out.println("Thanks for Your visit");
                     System.exit(0);
                 default:

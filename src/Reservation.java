@@ -133,8 +133,9 @@ public class Reservation {
         try {
             Statement stmt = con.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
+
+            System.out.println("The " + status + " books");
             while (resultSet.next()){
-                System.out.println("The " + status + " books");
                 System.out.println("Title: " + resultSet.getString("title"));
                 System.out.println("Reader name: " + resultSet.getString("userName"));
                 System.out.println("Borrowing date: " + resultSet.getDate("date_emprint"));

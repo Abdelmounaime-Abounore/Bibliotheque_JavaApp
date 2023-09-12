@@ -94,12 +94,11 @@ public class Book {
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while (result.next()){
-                System.out.format("%d\t%s\t%s\t%d\t%s%n",
-                        result.getInt("id"),
-                        result.getString("title"),
-                        result.getString("isbn"),
-                        result.getInt("quantity"),
-                        result.getString("name"));
+                System.out.println("Title: " + result.getString("title"));
+                System.out.println("Isbn: " + result.getString("isbn"));
+                System.out.println("Quantity: " + result.getInt("quantity"));
+                System.out.println("Author name: " + result.getString("name"));
+                System.out.println("==================================================");
             }
             System.out.println("---------------------------");
         }catch (Exception ex){
@@ -121,11 +120,10 @@ public class Book {
                 System.out.println("Book not found");
             } else {
                 while (result.next()){
-                    System.out.println("id : " + result.getInt("id"));
                     System.out.println("title : " + result.getString("title"));
                     System.out.println("isbn : " + result.getString("isbn"));
                     System.out.println("quantity : " + result.getInt("quantity"));
-                    System.out.println("name : " + result.getString("name"));
+                    System.out.println("Author name : " + result.getString("name"));
                 }
             }
             System.out.println("---------------------------");
@@ -152,11 +150,10 @@ public class Book {
                 System.out.println("Book not found");
             } else {
                 while (result.next()){
-                    System.out.println("id : " + result.getInt("id"));
                     System.out.println("title : " + result.getString("title"));
                     System.out.println("isbn : " + result.getString("isbn"));
                     System.out.println("quantity : " + result.getInt("quantity"));
-                    System.out.println("name : " + result.getString("name"));
+                    System.out.println("Author name : " + result.getString("name"));
                     System.out.println("---------------------------");
                 }
             }
@@ -187,13 +184,14 @@ public class Book {
     public void updateBook(String isbn) {
         Connection con = DbConnection.createDbConection();
 
-        String query = "UPDATE `books` SET `title`=?, `isbn`=?, `quantity`=? WHERE `isbn`=? ";
+        String query = "UPDATE `books` SET `title`=?, `isbn`=?, `quantity`=?, `auteur_id`=? WHERE `isbn`=? ";
         try {
             PreparedStatement preparedStatement = con.prepareStatement(query);
             preparedStatement.setString(1, getTitle());
             preparedStatement.setString(2, getIsbn());
             preparedStatement.setInt(3, getQuantity());
-            preparedStatement.setString(4, isbn);
+            preparedStatement.setInt(4, getAuteurId());
+            preparedStatement.setString(5, isbn);
 
             int count = preparedStatement.executeUpdate();
             if (count != 0) {
