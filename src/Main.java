@@ -34,8 +34,6 @@ public class Main {
                     break;
                 case 2:
                     int bookId;
-                    System.out.println("Enter Id: ");
-                    bookId = sc.nextInt();
 
                     System.out.println("Enter Title: ");
                     String title = sc.next();
@@ -46,15 +44,23 @@ public class Main {
                     System.out.println("Enter Quantity: ");
                     int quantity = sc.nextInt();
 
-                    System.out.println("Enter Author Id: ");
-                    int authorid = sc.nextInt();
+                    System.out.println("Enter Author name: ");
+                    String authorName = sc.next();
+
+                    author = new Author();
+                    int authorId = author.getAuthorId(authorName);
+
+                    if(authorId == 0) {
+                        System.out.println("Author name is doest exist");
+                        break;
+                    }
+
 
                     book = new Book();
-                    book.setId(bookId);
                     book.setTitle(title);
                     book.setIsbn(isbn);
                     book.setQuantity(quantity);
-                    book.setAuteurId(authorid);
+                    book.setAuteurId(authorId);
 
                     book.addBook();
                     break;

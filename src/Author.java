@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Author {
     private String name;
@@ -36,5 +37,24 @@ public class Author {
             ex.printStackTrace();
         }
         return this;
+    }
+
+    // Get Author Id
+
+    public int getAuthorId(String name){
+        Connection con = DbConnection.createDbConection();
+        String query = "SELECT id FROM auteurs WHERE name = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, name);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()){
+                int id = resultSet.getInt("id");
+                return id;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
     }
 }

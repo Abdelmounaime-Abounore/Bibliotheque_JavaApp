@@ -47,10 +47,6 @@ public class Book {
         return reservations;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -72,15 +68,14 @@ public class Book {
     // Add Book
     public Book addBook(){
         Connection con = DbConnection.createDbConection();
-        String query = "insert into books values (?,?,?,?,?)";
+        String query = "insert into books (title, isbn, quantity, auteur_id) values (?,?,?,?)";
 
         try{
             PreparedStatement pstm = con.prepareStatement(query);
-            pstm.setInt(1, this.id);
-            pstm.setString(2, this.title);
-            pstm.setString(3, this.isbn);
-            pstm.setInt(4, this.quantity);
-            pstm.setInt(5, this.auteurId);
+            pstm.setString(1, this.title);
+            pstm.setString(2, this.isbn);
+            pstm.setInt(3, this.quantity);
+            pstm.setInt(4, this.auteurId);
             int count = pstm.executeUpdate();
             if (count != 0)
                 System.out.println("Book inserted Successfully");
