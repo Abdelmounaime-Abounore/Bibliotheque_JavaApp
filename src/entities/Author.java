@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Author {
     private String name;
@@ -39,6 +40,7 @@ public class Author {
         return this;
     }
 
+
     // Get Author Id
 
     public int getAuthorId(String name){
@@ -57,4 +59,6 @@ public class Author {
         }
         return 0;
     }
+
+
 }

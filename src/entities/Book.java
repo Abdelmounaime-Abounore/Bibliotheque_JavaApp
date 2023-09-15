@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
-    private int id;
+//    private int id;
     private String title;
     private String isbn;
     private int quantity;
@@ -14,7 +14,6 @@ public class Book {
     private List<Reservation> reservations;
 
     public Book(int id, String title, String isbn, int quantity) {
-        this.id = id;
         this.title = title;
         this.isbn = isbn;
         this.quantity = quantity;
@@ -25,9 +24,7 @@ public class Book {
 
     }
 
-    public int getId(){
-        return id;
-    }
+
     public String getTitle(){
         return title;
     }
