@@ -1,9 +1,11 @@
+package entities;
+
+import database.DbConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.Date;
 
 public class Reservation {
     private String status;
@@ -49,7 +51,7 @@ public class Reservation {
         this.book = book;
     }
 
-    // Borrow a Book
+    // Borrow a entities.Book
     public void addReservation(){
         Connection con = DbConnection.createDbConection();
         String query = "INSERT into reservations (status, user_id, book_id) values (?,?,?)";
@@ -68,7 +70,7 @@ public class Reservation {
             preparedStatement2.executeUpdate();
 
             if (count != 0){
-                System.out.println("Book reserved Successfully");
+                System.out.println("entities.Book reserved Successfully");
             }else {
                 System.out.println("Something went wrong");
             }
@@ -97,7 +99,7 @@ public class Reservation {
         return true;
     }
 
-    //Return Book
+    //Return entities.Book
 
     public void returBook(String isbn){
         Connection con = DbConnection.createDbConection();
@@ -115,7 +117,7 @@ public class Reservation {
             preparedStatement2.executeUpdate();
 
             if (count != 0){
-                System.out.println("Book returned Successfully");
+                System.out.println("entities.Book returned Successfully");
             }else {
                 System.out.println("Something went wrong");
             }
@@ -137,7 +139,7 @@ public class Reservation {
             System.out.println("The " + status + " books");
             while (resultSet.next()){
                 System.out.println("Title: " + resultSet.getString("title"));
-                System.out.println("Reader name: " + resultSet.getString("userName"));
+                System.out.println("entities.Reader name: " + resultSet.getString("userName"));
                 System.out.println("Borrowing date: " + resultSet.getDate("date_emprint"));
                 System.out.println("================================");
             }

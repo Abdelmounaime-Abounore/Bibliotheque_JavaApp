@@ -1,3 +1,7 @@
+package entities;
+
+import database.DbConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,7 +66,7 @@ public class Book {
         reservations.add(reservation);
     }
 
-    // Add Book
+    // Add entities.Book
     public Book addBook(){
         Connection con = DbConnection.createDbConection();
         String query = "insert into books (title, isbn, quantity, auteur_id) values (?,?,?,?)";
@@ -75,7 +79,7 @@ public class Book {
             pstm.setInt(4, this.auteurId);
             int count = pstm.executeUpdate();
             if (count != 0)
-                System.out.println("Book inserted Successfully");
+                System.out.println("entities.Book inserted Successfully");
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -94,7 +98,7 @@ public class Book {
                 System.out.println("Title: " + result.getString("title"));
                 System.out.println("Isbn: " + result.getString("isbn"));
                 System.out.println("Quantity: " + result.getInt("quantity"));
-                System.out.println("Author name: " + result.getString("name"));
+                System.out.println("entities.Author name: " + result.getString("name"));
                 System.out.println("==================================================");
             }
             System.out.println("---------------------------");
@@ -114,13 +118,13 @@ public class Book {
 
             ResultSet result = stmt.executeQuery();
             if (!result.isBeforeFirst()){
-                System.out.println("Book not found");
+                System.out.println("entities.Book not found");
             } else {
                 while (result.next()){
                     System.out.println("title : " + result.getString("title"));
                     System.out.println("isbn : " + result.getString("isbn"));
                     System.out.println("quantity : " + result.getInt("quantity"));
-                    System.out.println("Author name : " + result.getString("name"));
+                    System.out.println("entities.Author name : " + result.getString("name"));
                 }
             }
             System.out.println("---------------------------");
@@ -130,7 +134,7 @@ public class Book {
         return this;
     }
 
-    //Search Books by Author Name
+    //Search Books by entities.Author Name
     public void searchByAuthorName(String authorName){
         Connection con =  DbConnection.createDbConection();
         String query = "SELECT books.*, auteurs.name " +
@@ -144,13 +148,13 @@ public class Book {
             ResultSet result = stmt.executeQuery();
 
             if (!result.isBeforeFirst()){
-                System.out.println("Book not found");
+                System.out.println("entities.Book not found");
             } else {
                 while (result.next()){
                     System.out.println("title : " + result.getString("title"));
                     System.out.println("isbn : " + result.getString("isbn"));
                     System.out.println("quantity : " + result.getInt("quantity"));
-                    System.out.println("Author name : " + result.getString("name"));
+                    System.out.println("entities.Author name : " + result.getString("name"));
                     System.out.println("---------------------------");
                 }
             }
@@ -192,7 +196,7 @@ public class Book {
 
             int count = preparedStatement.executeUpdate();
             if (count != 0) {
-                System.out.println("Book Updated Successfully");
+                System.out.println("entities.Book Updated Successfully");
             } else {
                 System.out.println("Something went wrong");
             }
@@ -201,7 +205,7 @@ public class Book {
         }
     }
 
-    // Delete Book
+    // Delete entities.Book
 
     public void deleteBook(String isbn){
         Connection con = DbConnection.createDbConection();
@@ -212,7 +216,7 @@ public class Book {
 
             int count = preparedStatement.executeUpdate();
             if (count != 0){
-                System.out.println("Book deleted Successfully");
+                System.out.println("entities.Book deleted Successfully");
             }else {
                 System.out.println("Something went wrong");
             }

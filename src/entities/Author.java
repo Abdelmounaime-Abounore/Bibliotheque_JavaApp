@@ -1,7 +1,10 @@
+package entities;
+
+import database.DbConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class Author {
     private String name;
@@ -30,9 +33,9 @@ public class Author {
             pstm.setString(1, this.name);
             int count = pstm.executeUpdate();
             if (count!=0){
-                System.out.println("Author Inserted Successfully");
+                System.out.println("entities.Author Inserted Successfully");
             }else {
-                System.out.println("Failed to Insert Author");
+                System.out.println("Failed to Insert entities.Author");
             }
         }catch (Exception ex){
             ex.printStackTrace();
@@ -41,7 +44,7 @@ public class Author {
     }
 
 
-    // Get Author Id
+    // Get entities.Author Id
 
     public int getAuthorId(String name){
         Connection con = DbConnection.createDbConection();
